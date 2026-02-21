@@ -1,0 +1,99 @@
+{
+  "translation": {
+    "header": { "title": "HealthCalc" },
+    "language": "EN",
+    "alerts": {
+      "missingData": {
+        "title": "Pending Data",
+        "message": "Please fill in all fields to proceed."
+      }
+    },
+    "profile": {
+      "title": "BIOLOGICAL PROFILE",
+      "male": "Male",
+      "female": "Female",
+      "fullName": "Full Name",
+      "age": "Age",
+      "weightKg": "Weight (kg)",
+      "weightLbs": "Weight (lbs)",
+      "heightM": "Height (m)",
+      "heightIn": "Height (in)",
+      "waterL": "Water (L)",
+      "waterOz": "Water (oz)",
+      "waterPlaceholder": "Today"
+    },
+    "bmi": {
+      "underweight": "Underweight",
+      "normal": "Healthy Weight",
+      "overweight": "Overweight",
+      "obese": "Obese"
+    },
+    "plan": {
+      "waterMore": "⚠️ Drink {{amount}}{{unit}} more today.",
+      "waterOk": "✅ Hydration is on track!",
+      "loseFat": "Lose Fat",
+      "loseFatDesc": "Your body burns ~{{tdee}} kcal/day.\nTo lose weight safely, aim for {{caloriasDiarias}} kcal/day.",
+      "gainMuscle": "Gain Muscle",
+      "gainMuscleDesc": "Your body burns ~{{tdee}} kcal/day.\nTo build muscle, aim for {{caloriasDiarias}} kcal/day.",
+      "maintain": "Maintain Weight",
+      "maintainDesc": "You're at a healthy weight! Eat ~{{tdee}} kcal/day to maintain energy.",
+      "tips": {
+        "protein": "Eat more protein (eggs, chicken) to stay full.",
+        "noSweets": "Avoid sweets and refined carbs.",
+        "noSkip": "Never skip meals.",
+        "goodFats": "Use olive oil and avocado for healthy calories.",
+        "routine": "Maintain your current active routine.",
+        "veggies": "Eat a variety of colorful vegetables."
+      },
+      "ex": {
+        "walk": "Brisk Walk", "burn": "Start burning",
+        "lightLift": "Light Lifting", "strength": "Build base strength",
+        "hiit": "HIIT Cardio", "maxBurn": "Max fat burn",
+        "lift": "Weightlifting", "metabolism": "Boost metabolism",
+        "heavyLift": "Heavy Lifting", "strengthFocus": "Focus on strength",
+        "rest": "Rest", "grow": "Muscles grow during sleep",
+        "favorite": "Favorite Activity", "health": "Overall wellness"
+      }
+    },
+    "routine": {
+      "title": "ROUTINE & METABOLISM",
+      "workspace": "Work Environment",
+      "office": "🏢 Office",
+      "active": "🔨 Active",
+      "trainingFreq": "Training Frequency",
+      "freqOptions": {
+        "sedentary": "Sedentary (Zero)",
+        "light": "1 to 2 times/week",
+        "moderate": "3 to 4 times/week",
+        "intense": "5+ times/week (Intense)"
+      }
+    },
+    "button": { "calculate": "Process Assessment" },
+    "results": {
+      "goal": "Goal: {{kcal}} kcal",
+      "bmi": "BMI {{bmi}}"
+    },
+    "footer": {
+      "sources": "Scientific Sources:",
+      "source1": "• Harris-Benedict Equation (1984)",
+      "source2": "• WHO Guidelines (BMI/Hydration)"
+    },
+    "modal": {
+      "title": "{{name}}'s Assessment",
+      "originalData": "📋 Original Data",
+      "age": "Age",
+      "years": "years",
+      "weight": "Weight",
+      "height": "Height",
+      "waterIntake": "Water Intake",
+      "gender": "Gender",
+      "training": "Training",
+      "diagnosis": "🩺 Diagnosis",
+      "bmi": "BMI",
+      "tdee": "TDEE (Daily Burn)",
+      "actionPlan": "🚀 Action Plan",
+      "tips": "💡 Smart Tips",
+      "exercises": "🏃 Recommended Exercises"
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "translation": {
+    "header": { "title": "HealthCalc" },
+    "language": "PT",
+    "alerts": {
+      "missingData": {
+        "title": "Dados Pendentes",
+        "message": "Preencha todos os campos para prosseguir."
+      }
+    },
+    "profile": {
+      "title": "PERFIL BIOLÓGICO",
+      "male": "Masculino",
+      "female": "Feminino",
+      "fullName": "Nome Completo",
+      "age": "Idade",
+      "weightKg": "Peso (kg)",
+      "weightLbs": "Peso (lbs)",
+      "heightM": "Altura (m)",
+      "heightIn": "Altura (pol)",
+      "waterL": "Água (L)",
+      "waterOz": "Água (oz)",
+      "waterPlaceholder": "Hoje"
+    },
+    "bmi": {
+      "underweight": "Abaixo do peso",
+      "normal": "Peso Saudável",
+      "overweight": "Sobrepeso",
+      "obese": "Obesidade"
+    },
+    "plan": {
+      "waterMore": "⚠️ Beba mais {{amount}}{{unit}} hoje.",
+      "waterOk": "✅ Hidratação em dia!",
+      "loseFat": "Perder Gordura",
+      "loseFatDesc": "Seu corpo gasta cerca de {{tdee}} calorias por dia.\nPara emagrecer sem passar fome, sua meta é até {{caloriasDiarias}} kcal diárias.",
+      "gainMuscle": "Ganhar Massa",
+      "gainMuscleDesc": "Seu corpo gasta {{tdee}} calorias.\nPara ganhar músculos, sua meta é {{caloriasDiarias}} kcal por dia.",
+      "maintain": "Manter Peso",
+      "maintainDesc": "Você está no peso ideal! Continue comendo cerca de {{tdee}} kcal para se manter saudável.",
+      "tips": {
+        "protein": "Coma mais proteínas (ovos, frango) para não sentir fome.",
+        "noSweets": "Evite doces e farinha branca.",
+        "noSkip": "Nunca pule refeições.",
+        "goodFats": "Use azeite e abacate para calorias boas.",
+        "routine": "Mantenha sua rotina atual.",
+        "veggies": "Varie as frutas e legumes."
+      },
+      "ex": {
+        "walk": "Caminhada Rápida", "burn": "Para começar a queimar",
+        "lightLift": "Musculação Leve", "strength": "Para fortalecer",
+        "hiit": "Cardio Intenso", "maxBurn": "Queima máxima",
+        "lift": "Musculação", "metabolism": "Acelerar metabolismo",
+        "heavyLift": "Treino Pesado", "strengthFocus": "Foco em força",
+        "rest": "Descanso", "grow": "O músculo cresce no sono",
+        "favorite": "Sua atividade favorita", "health": "Saúde e bem-estar"
+      }
+    },
+    "routine": {
+      "title": "ROTINA & METABOLISMO",
+      "workspace": "Ambiente de Trabalho",
+      "office": "🏢 Escritório",
+      "active": "🔨 Ativo",
+      "trainingFreq": "Frequência de Treinos",
+      "freqOptions": {
+        "sedentary": "Sedentário (Zero)",
+        "light": "1 a 2 vezes/semana",
+        "moderate": "3 a 4 vezes/semana",
+        "intense": "5+ vezes/semana (Intenso)"
+      }
+    },
+    "button": { "calculate": "Processar Avaliação" },
+    "results": {
+      "goal": "Meta: {{kcal}} kcal",
+      "bmi": "IMC {{bmi}}"
+    },
+    "footer": {
+      "sources": "Fontes Científicas:",
+      "source1": "• Equação Harris-Benedict (1984)",
+      "source2": "• Diretrizes OMS (IMC/Hidratação)"
+    }
+  }
+}

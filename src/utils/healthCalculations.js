@@ -1,38 +1,33 @@
 /**
  * Módulo de Cálculos - HealthCalc
- * Focado em UX Clara e Linguagem Acessível
  */
 
-// Cálculo do IMC com diagnóstico simples
-export const calcularIMC = (peso, altura) => {
+export const calcularIMC = (peso, altura, t) => {
   const imc = peso / (altura * altura);
   let diagnostico = '', cor = '';
 
-  if (imc < 18.5) { diagnostico = 'Abaixo do peso'; cor = '#FF9F0A'; }
-  else if (imc < 24.9) { diagnostico = 'Peso Saudável'; cor = '#30D158'; }
-  else if (imc < 29.9) { diagnostico = 'Sobrepeso'; cor = '#FFD60A'; }
-  else { diagnostico = 'Obesidade'; cor = '#FF453A'; }
+  if (imc < 18.5) { diagnostico = t('bmi.underweight'); cor = '#FF9F0A'; }
+  else if (imc < 24.9) { diagnostico = t('bmi.normal'); cor = '#30D158'; }
+  else if (imc < 29.9) { diagnostico = t('bmi.overweight'); cor = '#FFD60A'; }
+  else { diagnostico = t('bmi.obese'); cor = '#FF453A'; }
 
   return { valor: imc.toFixed(2), diagnostico, cor };
 };
 
-// Cálculo da necessidade diária de água em litros
 export const calcularAgua = (peso, frequenciaExercicio) => {
   let baseMl = 35;
   if (frequenciaExercicio === '3-4') baseMl = 38;
   if (frequenciaExercicio === '5+') baseMl = 42;
-  return ((peso * baseMl) / 1000).toFixed(1);
+  return ((peso * baseMl) / 1000).toFixed(2); // Retorna em Litros
 };
 
 export const calcularTDEE = (peso, altura, idade, genero, tipoTrabalho, frequenciaExercicio) => {
   const alturaCm = altura * 100;
   
-  // TMB (Harris-Benedict)
   let tmb = genero === 'masculino' 
     ? 88.36 + (13.4 * peso) + (4.8 * alturaCm) - (5.7 * idade)
     : 447.6 + (9.2 * peso) + (3.1 * alturaCm) - (4.3 * idade);
 
-  // Fator de Atividade
   let fator = 1.2;
   if (tipoTrabalho === 'fisico') fator += 0.2;
   switch (frequenciaExercicio) {
@@ -44,65 +39,60 @@ export const calcularTDEE = (peso, altura, idade, genero, tipoTrabalho, frequenc
   return parseInt(tmb * fator);
 };
 
-export const obterDataFormatada = () => new Date().toLocaleDateString('pt-BR');
+export const obterDataFormatada = () => {
+  // Ajusta a data conforme o locale (ex: MM/DD/YYYY para US)
+  return new Date().toLocaleDateString(); 
+};
 
-// Geração de Plano de Ação
-export const gerarPlanoDeAcao = (pesoAtual, altura, tdee, aguaIngerida, aguaMeta, frequenciaExercicio) => {
-  const pesoIdeal = (22 * altura * altura);
-  const diferenca = pesoAtual - pesoIdeal;
+export const gerarPlanoDeAcao = (pesoAtual, altura, tdee, aguaIngerida, aguaMeta, frequenciaExercicio, t, isMetric) => {
+  const pesoIdealKg = (22 * altura * altura);
+  const diferencaKg = pesoAtual - pesoIdealKg;
   
   let objetivo = '', acaoCalorica = '', caloriasDiarias = 0;
   let dicas = [], exercicios = [];
 
+  // Tratamento de Água (L ou oz)
   const diferencaAgua = parseFloat(aguaMeta) - parseFloat(aguaIngerida);
+  const diffExibicao = isMetric ? diferencaAgua.toFixed(1) : (diferencaAgua * 33.814).toFixed(0);
+  const unidadeAgua = isMetric ? 'L' : 'oz';
+  
   let statusAgua = diferencaAgua > 0 
-    ? `⚠️ Beba mais ${diferencaAgua.toFixed(1)}L hoje.` 
-    : `✅ Hidratação em dia!`;
+    ? t('plan.waterMore', { amount: diffExibicao, unit: unidadeAgua })
+    : t('plan.waterOk');
 
-  if (diferenca > 2) { 
-    objetivo = 'Perder Gordura';
-    const deficit = 500;
-    caloriasDiarias = tdee - deficit;
-    acaoCalorica = `Seu corpo gasta cerca de ${tdee} calorias por dia.\nPara emagrecer sem passar fome, sua meta é comer até ${caloriasDiarias} calorias diárias.`;
-    dicas = ["Coma mais proteínas (ovos, frango) para não sentir fome.", "Evite doces e farinha branca.", statusAgua];
-
-    if (frequenciaExercicio === '0' || frequenciaExercicio === '1-2') {
-      exercicios = [
-        { tipo: "Caminhada Rápida", tempo: "30 min todo dia", gasto: "Para começar a queimar" },
-        { tipo: "Musculação Leve", tempo: "2x na semana", gasto: "Para fortalecer" }
-      ];
-    } else {
-      exercicios = [
-        { tipo: "Cardio Intenso", tempo: "30 min pós-treino", gasto: "Queima máxima" },
-        { tipo: "Musculação", tempo: "4x na semana", gasto: "Acelerar metabolismo" }
-      ];
-    }
-
-  } else if (diferenca < -2) {
-    objetivo = 'Ganhar Massa';
-    const superavit = 350;
-    caloriasDiarias = tdee + superavit;
-    acaoCalorica = `Seu corpo gasta ${tdee} calorias.\nPara ganhar músculos, você precisa comer mais do que gasta. Sua meta é ${caloriasDiarias} calorias por dia.`;
+  // Lógica de Calorias e Dicas (Mapeado pelo JSON)
+  if (diferencaKg > 2) { 
+    objetivo = t('plan.loseFat');
+    caloriasDiarias = tdee - 500;
+    acaoCalorica = t('plan.loseFatDesc', { tdee, caloriasDiarias });
+    dicas = [t('plan.tips.protein'), t('plan.tips.noSweets'), statusAgua];
     
-    dicas = ["Nunca pule refeições.", "Use azeite e abacate para calorias boas.", statusAgua];
+    exercicios = (frequenciaExercicio === '0' || frequenciaExercicio === '1-2')
+      ? [ { tipo: t('plan.ex.walk'), tempo: "30 min", gasto: t('plan.ex.burn') }, { tipo: t('plan.ex.lightLift'), tempo: "2x", gasto: t('plan.ex.strength') } ]
+      : [ { tipo: t('plan.ex.hiit'), tempo: "30 min", gasto: t('plan.ex.maxBurn') }, { tipo: t('plan.ex.lift'), tempo: "4x", gasto: t('plan.ex.metabolism') } ];
+
+  } else if (diferencaKg < -2) {
+    objetivo = t('plan.gainMuscle');
+    caloriasDiarias = tdee + 350;
+    acaoCalorica = t('plan.gainMuscleDesc', { tdee, caloriasDiarias });
+    dicas = [t('plan.tips.noSkip'), t('plan.tips.goodFats'), statusAgua];
+    
     exercicios = [
-      { tipo: "Treino Pesado", tempo: "45-60 min", gasto: "Foco em força" },
-      { tipo: "Descanso", tempo: "Dormir 8h", gasto: "O músculo cresce no sono" }
+      { tipo: t('plan.ex.heavyLift'), tempo: "45-60 min", gasto: t('plan.ex.strengthFocus') },
+      { tipo: t('plan.ex.rest'), tempo: "8h", gasto: t('plan.ex.grow') }
     ];
-
   } else {
-    objetivo = 'Manter Peso';
+    objetivo = t('plan.maintain');
     caloriasDiarias = tdee;
-    acaoCalorica = `Você está no peso ideal! Continue comendo cerca de ${tdee} calorias para se manter saudável e com energia.`;
-    
-    dicas = ["Mantenha sua rotina atual.", "Varie as frutas e legumes.", statusAgua];
-    exercicios = [{ tipo: "Sua atividade favorita", tempo: "30 min", gasto: "Saúde e bem-estar" }];
+    acaoCalorica = t('plan.maintainDesc', { tdee });
+    dicas = [t('plan.tips.routine'), t('plan.tips.veggies'), statusAgua];
+    exercicios = [{ tipo: t('plan.ex.favorite'), tempo: "30 min", gasto: t('plan.ex.health') }];
   }
 
   if (caloriasDiarias < 1200) caloriasDiarias = 1200;
 
   return {
-    pesoIdeal: pesoIdeal.toFixed(1),
+    pesoIdeal: isMetric ? pesoIdealKg.toFixed(1) : (pesoIdealKg * 2.20462).toFixed(1),
     objetivo,
     acaoCalorica,
     caloriasDiarias: parseInt(caloriasDiarias),
